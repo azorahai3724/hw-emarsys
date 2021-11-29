@@ -5,6 +5,10 @@ import (
 	"time"
 )
 
+func isValidTurnaround(i int) bool {
+	return i > 0
+}
+
 func isWeekend(t time.Time) bool {
 	switch t.Weekday() {
 	case time.Friday:

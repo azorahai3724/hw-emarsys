@@ -5,8 +5,15 @@ import (
 	"time"
 )
 
-const dateFormat = "2006-01-02 15:04"
-const timeFormat = "15:04"
+const (
+	dateFormat    = "2006-01-02 15:04"
+	timeFormat    = "15:04"
+	workDayStart  = "09:00"
+	workDayEnd    = "17:00"
+	workDayLength = 8
+	overNight     = 16
+	oneDay        = 24
+)
 
 func DueDateCalculator(issueStart string, turnAround int) (string, error) {
 	t, err := time.Parse(dateFormat, issueStart)
@@ -18,7 +25,7 @@ func DueDateCalculator(issueStart string, turnAround int) (string, error) {
 		return "", &InputWeekendErr{}
 	}
 
-	b, err := isWithinWorkingHours("09:00", "17:00", t)
+	b, err := isWithinWorkingHours(workDayStart, workDayEnd, t)
 
 	if err != nil {
 		return "", fmt.Errorf("check input is within working hours")
@@ -27,6 +34,11 @@ func DueDateCalculator(issueStart string, turnAround int) (string, error) {
 		return "", &NotWithinWorkingHoursErr{}
 	}
 
+	if !isValidTurnaround(turnAround) {
+		return "", &InvalidTurnaroundErr{}
+	}
+
 	newTime := t.Add(time.Hour * 8)
+
 	return newTime.Format(dateFormat), nil
 }
