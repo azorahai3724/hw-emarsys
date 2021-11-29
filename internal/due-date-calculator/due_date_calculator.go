@@ -12,6 +12,11 @@ func DueDateCalculator(issueStart string, turnAround int) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("parse issue start: %w", err)
 	}
+
+	if isWeekend(t) {
+		return "", &InputWeekendErr{}
+	}
+
 	newTime := t.Add(time.Hour * 8)
 	return newTime.Format(timeFormat), nil
 }

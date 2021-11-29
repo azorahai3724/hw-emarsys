@@ -14,6 +14,7 @@ func TestDueDateCalculator(t *testing.T) {
 		wantErr        error
 	}{
 		"within the same workday, 8 hours turnaround time": {issueStart: "2021-11-29 09:00", turnAroundTime: 8, wantDueDate: "2021-11-29 17:00", wantErr: nil},
+		"input given in weekend":                           {issueStart: "2021-11-27 09:00", turnAroundTime: 4, wantErr: &InputWeekendErr{}},
 	}
 
 	for name, tc := range tests {
