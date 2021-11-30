@@ -8,7 +8,7 @@ func (i *InputWeekendErr) Error() string {
 
 type NotWithinWorkingHoursErr struct{}
 
-func (i *NotWithinWorkingHoursErr) Error() string {
+func (n *NotWithinWorkingHoursErr) Error() string {
 	return "starting time cannot be outside of working hours"
 }
 
