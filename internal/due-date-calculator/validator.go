@@ -13,7 +13,7 @@ func isWeekend(t time.Time) bool {
 	switch t.Weekday() {
 	case time.Friday:
 		h, _, _ := t.Clock()
-		if h >= 12+5 {
+		if h >= 17 {
 			return true
 		}
 	case time.Saturday:

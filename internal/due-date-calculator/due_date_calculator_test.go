@@ -13,10 +13,11 @@ func TestDueDateCalculator(t *testing.T) {
 		wantDueDate    string
 		wantErr        error
 	}{
-		"within the same workday, 8 hours turnaround time": {issueStart: "2021-11-29 09:00", turnAroundTime: 8, wantDueDate: "2021-11-29 17:00", wantErr: nil},
+		"within the same workday, 9 hours turnaround time": {issueStart: "2021-11-29 09:00", turnAroundTime: 9, wantDueDate: "2021-11-30 10:00", wantErr: nil},
 		"input given in weekend":                           {issueStart: "2021-11-27 09:00", turnAroundTime: 4, wantErr: &InputWeekendErr{}},
 		"input given outside working hours":                {issueStart: "2021-11-29 21:00", turnAroundTime: 4, wantErr: &NotWithinWorkingHoursErr{}},
 		"invalid turnaround time":                          {issueStart: "2021-11-29 09:00", turnAroundTime: -16, wantErr: &InvalidTurnaroundErr{}},
+		"start friday 09:00, 20 hours turnaround time":     {issueStart: "2021-11-26 09:00", turnAroundTime: 20, wantDueDate: "2021-11-30 13:00"},
 	}
 
 	for name, tc := range tests {
