@@ -32,12 +32,12 @@ func isWithinWorkingHours(start string, end string, checkDate time.Time) (bool, 
 		return false, fmt.Errorf("parse hours from given date: %w", err)
 	}
 
-	workingHoursStart, err := time.Parse(timeFormat, "09:00")
+	workingHoursStart, err := time.Parse(timeFormat, start)
 	if err != nil {
 		return false, fmt.Errorf("parse working hours start: %w", err)
 	}
 
-	workingHoursEnd, err := time.Parse(timeFormat, "17:00")
+	workingHoursEnd, err := time.Parse(timeFormat, end)
 	if err != nil {
 		return false, fmt.Errorf("parse working hours end: %w", err)
 	}
